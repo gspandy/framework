@@ -21,5 +21,30 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>javax</groupId>
+    	<artifactId>javaee-api</artifactId>
+    	<version>6.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.vaadin</groupId>
+    	<artifactId>vaadin</artifactId>
+    	<version>6.7.8</version>
+    </dependency>
   </dependencies>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+  	</plugins>
+  </build>
+  
 </project>
