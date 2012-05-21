@@ -1,7 +1,8 @@
 package org.otojunior.framework.security;
 
 import java.io.Serializable;
-import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -10,26 +11,20 @@ import java.security.Principal;
  */
 public interface UserContext extends Serializable {
 	/**
-	 * Get login of user.
-	 * @return Login name.
-	 */
-	public String getUserLogin();
-
-	/**
-	 * Set user principal.
-	 * @param userPrincipal User principal.
-	 */
-	public void setUserPrincipal(Principal userPrincipal);
-	
-	/**
-	 * Set user principal.
-	 * @param userPrincipal User principal.
-	 */
-	public Principal getUserPrincipal();
-
-	/**
 	 * Complete the context with other specific data.
 	 */
 	public void complete();
+
+	/**
+	 * Obtains the request
+	 * @param request
+	 */
+	public HttpServletRequest getRequest();
+	
+	/**
+	 * Stores current request in context
+	 * @param request
+	 */
+	public void setRequest(HttpServletRequest request);
 }
 

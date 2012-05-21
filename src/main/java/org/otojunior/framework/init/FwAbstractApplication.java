@@ -1,7 +1,5 @@
 package org.otojunior.framework.init;
 
-import java.security.Principal;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,24 +14,39 @@ import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 public abstract class FwAbstractApplication extends Application implements HttpServletRequestListener {
 	private static final long serialVersionUID = 5706181071228373990L;
 
-	private UserContext userContext;
-
-	public void onRequestStart(HttpServletRequest request,
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onRequestEnd(HttpServletRequest request,
 			HttpServletResponse response) {
-		if (getUser() == null) {
-			Principal userPrincipal = request.getUserPrincipal();
-			userContext = getNewUserContext();
-			userContext.setUserPrincipal(userPrincipal);
-			userContext.complete();
-			setUser(userContext);
+		if (getUser() != null) {
+			UserContext userContext = (UserContext)getUser();
+			userContext.setRequest(null);
 		}
 	}
 
-	protected abstract UserContext getNewUserContext();
-
-
-	public void onRequestEnd(HttpServletRequest request,
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onRequestStart(HttpServletRequest request,
 			HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		UserContext userContext = null;
+		if (getUser() == null) {
+			userContext = getNewUserContext();
+			userContext.complete();
+			userContext.setRequest(request);
+			setUser(userContext);
+		} else {
+			userContext = (UserContext)getUser();
+			userContext.setRequest(request);
+		}
 	}
+
+	/**
+	 * Creates a new User context. Must be overrided.
+	 * @return {@link UserContext}
+	 */
+	protected abstract UserContext getNewUserContext();
 }
