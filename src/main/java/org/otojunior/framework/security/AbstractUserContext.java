@@ -26,7 +26,7 @@ public abstract class AbstractUserContext implements UserContext {
 	 * @return the user login.
 	 */
 	public String getUserLogin() {
-		Principal userPrincipal = request.getUserPrincipal();
+		Principal userPrincipal = getRequest().getUserPrincipal();
 		return (userPrincipal != null) ? userPrincipal.getName() : null;
 	}
 	

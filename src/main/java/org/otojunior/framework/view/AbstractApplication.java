@@ -16,14 +16,12 @@ public abstract class AbstractApplication extends Application implements HttpSer
 
 	/**
 	 * {@inheritDoc}
+	 * May be overrided in subclasses.
 	 */
 	@Override
 	public void onRequestEnd(HttpServletRequest request,
 			HttpServletResponse response) {
-		if (getUser() != null) {
-			UserContext userContext = (UserContext)getUser();
-			userContext.setRequest(null);
-		}
+		// May be overrided in subclasses.
 	}
 
 	/**
@@ -35,8 +33,8 @@ public abstract class AbstractApplication extends Application implements HttpSer
 		UserContext userContext = null;
 		if (getUser() == null) {
 			userContext = getNewUserContext();
-			userContext.complete();
 			userContext.setRequest(request);
+			userContext.complete();
 			setUser(userContext);
 		} else {
 			userContext = (UserContext)getUser();
