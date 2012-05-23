@@ -1,4 +1,4 @@
-package org.otojunior.framework.init;
+package org.otojunior.framework.view;
 
 import com.vaadin.terminal.gwt.server.ApplicationServlet;
 
@@ -7,7 +7,7 @@ import com.vaadin.terminal.gwt.server.ApplicationServlet;
  * @author otojunior
  *
  */
-public class FwAbstractApplicationServlet extends ApplicationServlet {
+public class AbstractApplicationServlet extends ApplicationServlet {
 	private static final long serialVersionUID = -8328305599467483690L;
 
 }

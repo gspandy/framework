@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author otojunior
  *
  */
-public abstract class FwAbstractUserContext implements UserContext {
+public abstract class AbstractUserContext implements UserContext {
 	private static final long serialVersionUID = -3608046049154304943L;
 
 	private HttpServletRequest request;

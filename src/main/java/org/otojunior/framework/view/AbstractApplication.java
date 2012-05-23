@@ -1,4 +1,4 @@
-package org.otojunior.framework.init;
+package org.otojunior.framework.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +11,7 @@ import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 /**
  * @author otojunior
  */
-public abstract class FwAbstractApplication extends Application implements HttpServletRequestListener {
+public abstract class AbstractApplication extends Application implements HttpServletRequestListener {
 	private static final long serialVersionUID = 5706181071228373990L;
 
 	/**
