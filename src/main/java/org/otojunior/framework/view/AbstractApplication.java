@@ -2,6 +2,7 @@ package org.otojunior.framework.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.otojunior.framework.security.UserContext;
 
@@ -47,4 +48,13 @@ public abstract class AbstractApplication extends Application implements HttpSer
 	 * @return {@link UserContext}
 	 */
 	protected abstract UserContext getNewUserContext();
+	
+	@Override
+	public void close() {
+		super.close();
+		UserContext userContext = (UserContext)getUser();
+		HttpSession session = userContext.getRequest().getSession();
+		if (!session.isNew())
+			session.invalidate();
+	}
 }
