@@ -15,6 +15,12 @@ import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 public abstract class AbstractApplication extends Application implements HttpServletRequestListener {
 	private static final long serialVersionUID = 5706181071228373990L;
 
+	@Override
+	public void close() {
+		super.close();
+		getSession().invalidate();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * May be overrided in subclasses.
@@ -42,19 +48,19 @@ public abstract class AbstractApplication extends Application implements HttpSer
 			userContext.setRequest(request);
 		}
 	}
-
+	
+	/**
+	 * Obtain the associated session.
+	 * @return The HTTP Session associated.
+	 */
+	private HttpSession getSession() {
+		UserContext userContext = (UserContext)getUser();
+		return userContext.getRequest().getSession();
+	}
+	
 	/**
 	 * Creates a new User context. Must be overrided.
 	 * @return {@link UserContext}
 	 */
 	protected abstract UserContext getNewUserContext();
-	
-	@Override
-	public void close() {
-		super.close();
-		UserContext userContext = (UserContext)getUser();
-		HttpSession session = userContext.getRequest().getSession();
-		if (!session.isNew())
-			session.invalidate();
-	}
 }
