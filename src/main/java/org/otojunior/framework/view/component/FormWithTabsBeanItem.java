@@ -3,14 +3,11 @@
  */
 package org.otojunior.framework.view.component;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
@@ -49,13 +46,13 @@ public class FormWithTabsBeanItem extends Form {
 	 * @param defaultFieldFactory 
 	 * @param fieldInTabLocation 
 	 */
-	public FormWithTabsBeanItem(Map<Object, String> propertyTabAssociation, BeanItem<?> beanItem, DefaultFieldFactory defaultFieldFactory) {
+	public FormWithTabsBeanItem(Map<Object, String> propertyTabAssociation, BeanItem<?> beanItem) {
 		super(new VerticalLayout());
 		this.tabSheet = new TabSheet();
 		this.propertyTabAssociation = propertyTabAssociation;
 		this.tabContentAssociation = new HashMap<String, Layout>();
 		this.setVisibleItemProperties(propertyTabAssociation.keySet());
-		this.setItemDataSource(beanItem);
+		this.setItemDataSource(beanItem, propertyTabAssociation.keySet());
 	}
 	
 	/**
@@ -68,7 +65,8 @@ public class FormWithTabsBeanItem extends Form {
 		this.propertyTabAssociation = propertyTabAssociation;
 		this.tabContentAssociation = new HashMap<String, Layout>();
 		this.setFormFieldFactory(formFieldFactory);
-		this.setItemDataSource(beanItem);
+		this.setVisibleItemProperties(propertyTabAssociation.keySet());
+		this.setItemDataSource(beanItem, propertyTabAssociation.keySet());
 	}
 	
 	@Override

@@ -3,21 +3,21 @@
  */
 package org.otojunior.framework.view.component;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Form;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.TabSheet.Tab;
 
