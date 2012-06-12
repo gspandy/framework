@@ -1,6 +1,7 @@
 package org.otojunior.framework.view.component;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.vaadin.data.Item;
@@ -41,6 +42,38 @@ public class FormTabSheet extends Form {
 	private Map<String, Layout> tabContentAssociation;  
 	
 	/**
+	 * Convenience constructor to initialize the form. The format is:
+	 * {propertyId, tabId, Field, [visible, enabled]}
+	 * @param config
+	 */
+	public FormTabSheet(Object[] config, BeanItem<?> transferObject) {
+		super(new VerticalLayout());
+		Map<Object, FieldInfo> map = new LinkedHashMap<Object, FieldInfo>();
+		if (config == null)
+			throw new NullPointerException("The config in constructor can not be 'null'");
+		
+		for (Object element : config) {
+			Object[] aConfig = (Object[])element;
+			if (aConfig.length < 3 || aConfig.length > 5)
+				throw new IllegalArgumentException("The config argument has an incorrect format");
+			
+			String tabId = (String)aConfig[1];
+			Field field = (Field)aConfig[2];
+			FieldInfo info = (aConfig.length == 3) ? 
+				new FieldInfo(tabId, field) : 
+				new FieldInfo(tabId, field, (Boolean)aConfig[3], (Boolean)aConfig[4]);
+			map.put(aConfig[0], info);
+		}
+		
+		this.tabSheet = new TabSheet();
+		this.propertyTabAssociation = map;
+		this.tabContentAssociation = new HashMap<String, Layout>();
+		this.setFormFieldFactory(new InternalFormFieldFactory());
+		this.setVisibleItemProperties(propertyTabAssociation.keySet());
+		this.setItemDataSource(transferObject, propertyTabAssociation.keySet());
+	}
+	
+	/**
 	 * @param order 
 	 * @param transferObject TO (Transfer Object).
 	 * @param defaultFieldFactory 
@@ -59,6 +92,14 @@ public class FormTabSheet extends Form {
 	@Override
 	public void attach() {
 		super.attach();
+
+		/*
+		 * Optimize code to hide the tabbar when the application has been configured to one single tab.
+		 * Like the browsers works.
+		 */
+		if (tabSheet.getComponentCount() <= 1)
+			tabSheet.hideTabs(true);
+		
 		getLayout().addComponent(tabSheet);
 	}
 	

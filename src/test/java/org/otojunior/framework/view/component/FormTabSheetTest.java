@@ -27,7 +27,7 @@ import com.vaadin.ui.TextField;
  * @author otojr
  *
  */
-public class FormWithTabsBeanItemTest {
+public class FormTabSheetTest {
 	@SuppressWarnings("unused")
 	private static class Usuario {
 		private String nome;
@@ -51,8 +51,11 @@ public class FormWithTabsBeanItemTest {
 	private String ABA_PRINCIPAL = "Principal";
 	private String ABA_SECUNDARIA = "Secundária";
 	
+	/**
+	 * 
+	 */
 	@Test
-	public void test() {
+	public void testUsingDefaultConstructor() {
 		Map<Object, FieldInfo> p = new HashMap<Object, FieldInfo>();
 		p.put("nome", new FieldInfo(ABA_PRINCIPAL, new TextField("Nome")));
 		p.put("login", new FieldInfo(ABA_PRINCIPAL, new TextField("Login")));
@@ -62,6 +65,31 @@ public class FormWithTabsBeanItemTest {
 		
 		BeanItem<Usuario> beanItem = new BeanItem<Usuario>(new Usuario());
 		FormTabSheet f = new FormTabSheet(p, beanItem);
+		
+		Tab tabPrincipal = f.getTab(ABA_PRINCIPAL);
+		assertNotNull(tabPrincipal);
+		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Nome"));
+		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Login"));
+		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Senha"));
+		assertFalse(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Data de Nascimento"));
+		
+		assertTrue(containsComponent((Layout)f.getTab(ABA_SECUNDARIA).getComponent(), "Data de Nascimento"));
+		assertFalse(containsComponent((Layout)f.getTab(ABA_SECUNDARIA).getComponent(), "Login"));
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void testUsingConvenientConstructor() {
+		BeanItem<Usuario> beanItem = new BeanItem<Usuario>(new Usuario());
+		Object[][] config = {
+			{"nome", ABA_PRINCIPAL, new TextField("Nome")},
+			{"login", ABA_PRINCIPAL, new TextField("Login")},
+			{"password", ABA_PRINCIPAL, new PasswordField("Senha")},
+			{"dataNasc", ABA_SECUNDARIA, new DateField("Data de Nascimento")},
+			{"ativo", ABA_SECUNDARIA, new CheckBox("Ativo?")}};
+		FormTabSheet f = new FormTabSheet(config, beanItem);
 		
 		Tab tabPrincipal = f.getTab(ABA_PRINCIPAL);
 		assertNotNull(tabPrincipal);
