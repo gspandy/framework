@@ -1,4 +1,4 @@
-package org.otojunior.framework.view.component;
+package org.otojunior.framework.view.property;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;

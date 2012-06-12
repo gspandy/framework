@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.otojunior.framework.view.component;
 
 import static org.junit.Assert.assertFalse;
@@ -15,84 +12,40 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Test;
+import org.otojunior.framework.view.component.FormTabSheet.FieldInfo;
 
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.Layout;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.TextField;
 
 /**
  * @author otojr
  *
  */
 public class FormWithTabsBeanItemTest {
+	@SuppressWarnings("unused")
 	private static class Usuario {
 		private String nome;
 		private String login;
 		private String password;
 		private Date dataNasc;
 		private boolean ativo;
-		/**
-		 * @return the nome
-		 */
-		public String getNome() {
-			return nome;
-		}
-		/**
-		 * @param nome the nome to set
-		 */
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
-		/**
-		 * @return the login
-		 */
-		public String getLogin() {
-			return login;
-		}
-		/**
-		 * @param login the login to set
-		 */
-		public void setLogin(String login) {
-			this.login = login;
-		}
-		/**
-		 * @return the password
-		 */
-		public String getPassword() {
-			return password;
-		}
-		/**
-		 * @param password the password to set
-		 */
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		/**
-		 * @return the dataNasc
-		 */
-		public Date getDataNasc() {
-			return dataNasc;
-		}
-		/**
-		 * @param dataNasc the dataNasc to set
-		 */
-		public void setDataNasc(Date dataNasc) {
-			this.dataNasc = dataNasc;
-		}
-		/**
-		 * @return the ativo
-		 */
-		public boolean isAtivo() {
-			return ativo;
-		}
-		/**
-		 * @param ativo the ativo to set
-		 */
-		public void setAtivo(boolean ativo) {
-			this.ativo = ativo;
-		}
 		
+		public String getNome() { return nome; }
+		public void setNome(String nome) { this.nome = nome; }
+		public String getLogin() { return login; }
+		public void setLogin(String login) { this.login = login; }
+		public String getPassword() { return password; }
+		public void setPassword(String password) { this.password = password; }
+		public Date getDataNasc() {	return dataNasc; }
+		public void setDataNasc(Date dataNasc) { this.dataNasc = dataNasc; }
+		public boolean isAtivo() { return ativo; }
+		public void setAtivo(boolean ativo) { this.ativo = ativo; }
 	}
 	
 	private String ABA_PRINCIPAL = "Principal";
@@ -100,40 +53,49 @@ public class FormWithTabsBeanItemTest {
 	
 	@Test
 	public void test() {
-		Map<Object, String> p = new HashMap<Object, String>();
-		p.put("nome", ABA_PRINCIPAL);
-		p.put("login", ABA_PRINCIPAL);
-		p.put("password", ABA_PRINCIPAL);
-		p.put("dataNasc", ABA_SECUNDARIA);
-		p.put("ativo", ABA_SECUNDARIA);
+		Map<Object, FieldInfo> p = new HashMap<Object, FieldInfo>();
+		p.put("nome", new FieldInfo(ABA_PRINCIPAL, new TextField("Nome")));
+		p.put("login", new FieldInfo(ABA_PRINCIPAL, new TextField("Login")));
+		p.put("password", new FieldInfo(ABA_PRINCIPAL, new PasswordField("Senha")));
+		p.put("dataNasc", new FieldInfo(ABA_SECUNDARIA, new DateField("Data de Nascimento")));
+		p.put("ativo", new FieldInfo(ABA_SECUNDARIA, new CheckBox("Ativo?")));
 		
 		BeanItem<Usuario> beanItem = new BeanItem<Usuario>(new Usuario());
-		FormWithTabsBeanItem f = new FormWithTabsBeanItem(p, beanItem);
+		FormTabSheet f = new FormTabSheet(p, beanItem);
 		
 		Tab tabPrincipal = f.getTab(ABA_PRINCIPAL);
 		assertNotNull(tabPrincipal);
 		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Nome"));
 		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Login"));
-		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Password"));
-		assertFalse(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Data Nasc"));
+		assertTrue(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Senha"));
+		assertFalse(containsComponent((Layout)f.getTab(ABA_PRINCIPAL).getComponent(), "Data de Nascimento"));
 		
-		assertTrue(containsComponent((Layout)f.getTab(ABA_SECUNDARIA).getComponent(), "Data Nasc"));
+		assertTrue(containsComponent((Layout)f.getTab(ABA_SECUNDARIA).getComponent(), "Data de Nascimento"));
 		assertFalse(containsComponent((Layout)f.getTab(ABA_SECUNDARIA).getComponent(), "Login"));
-		
 	}
 	
-	private <T> Collection<T> toCollection(Iterator<T> iterator) {
-		Collection<T> col = new ArrayList<T>();
-		while (iterator.hasNext())
-			col.add(iterator.next());
+	/**
+	 * @param iterator
+	 * @return
+	 */
+	private Collection<Component> toCollection(Iterator<Component> iterator) {
+		Collection<Component> col = new ArrayList<Component>();
+		while (iterator.hasNext()) {
+			Component next = iterator.next();
+			col.add(next);
+		}
 		return col;
 	}
 	
+	/**
+	 * @param layout
+	 * @param caption
+	 * @return
+	 */
 	private boolean containsComponent(Layout layout, String caption) {
 		Collection<Component> components = toCollection(layout.getComponentIterator());
 		for (Component component : components)
-			if (component.getCaption().equals(caption))	return true;
+			if (caption.equals(component.getCaption()))	return true;
 		return false;
 	}
-
 }
