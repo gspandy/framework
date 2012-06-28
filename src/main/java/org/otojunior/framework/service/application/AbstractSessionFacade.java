@@ -7,12 +7,12 @@ package org.otojunior.framework.service.application;
  * @author otojr
  *
  */
-public abstract class AbstractApplicationService implements ApplicationService {
+public abstract class AbstractSessionFacade implements SessionFacade {
 
 	/**
 	 * 
 	 */
-	public AbstractApplicationService() {
+	public AbstractSessionFacade() {
 		// TODO Auto-generated constructor stub
 	}
 

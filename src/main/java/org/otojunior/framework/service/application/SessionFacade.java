@@ -1,5 +1,5 @@
 package org.otojunior.framework.service.application;
 
-public interface ApplicationService {
+public interface SessionFacade {
 
 }
