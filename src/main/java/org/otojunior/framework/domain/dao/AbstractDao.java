@@ -1,4 +1,4 @@
-package org.otojunior.framework.entity.dao;
+package org.otojunior.framework.domain.dao;
 
 public abstract class AbstractDao implements Dao {
 

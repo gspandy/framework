@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.otojunior.framework.entity.dao;
+package org.otojunior.framework.domain.dao;
 
 /**
  * @author otojr

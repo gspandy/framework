@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.otojunior.framework.service.domain;
+package org.otojunior.framework.service.application;
 
 /**
  * @author otojr
