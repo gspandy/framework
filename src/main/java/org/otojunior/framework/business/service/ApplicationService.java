@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.otojunior.framework.service.application;
+package org.otojunior.framework.business.service;
 
 /**
  * @author otojr

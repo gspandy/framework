@@ -1,4 +1,4 @@
-package org.otojunior.framework.view;
+package org.otojunior.framework.presentation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

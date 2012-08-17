@@ -1,4 +1,4 @@
-package org.otojunior.framework.view;
+package org.otojunior.framework.presentation;
 
 import com.vaadin.terminal.gwt.server.ApplicationServlet;
 

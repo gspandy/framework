@@ -12,7 +12,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Test;
-import org.otojunior.framework.view.component.FormTabSheet.FieldInfo;
+import org.otojunior.framework.presentation.component.FormTabSheet;
+import org.otojunior.framework.presentation.component.FormTabSheet.FieldInfo;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.CheckBox;

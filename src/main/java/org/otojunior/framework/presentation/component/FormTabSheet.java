@@ -1,4 +1,4 @@
-package org.otojunior.framework.view.component;
+package org.otojunior.framework.presentation.component;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

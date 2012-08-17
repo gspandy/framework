@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.otojunior.framework.view.component.builder;
+package org.otojunior.framework.presentation.component.builder;
 
 import java.util.Date;
 import java.util.Locale;
